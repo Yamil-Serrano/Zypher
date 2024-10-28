@@ -1,4 +1,5 @@
 import os
+import sys
 import tkinter as tk
 from pathlib import Path
 import customtkinter as ctk
@@ -7,6 +8,16 @@ import threading
 
 # Downloads folder
 download_folder = str(Path.home() / "Downloads")
+
+def resource_path(relative_path):
+    """Get absolute path to resource, works for dev and for PyInstaller"""
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 def start_loading_animation():
     """Start the loading animation."""
@@ -74,7 +85,12 @@ ctk.set_default_color_theme("dark-blue")  # Set color theme
 
 # Create the main window
 Window = ctk.CTk()
-Window.iconbitmap("resources/video.ico")
+icon_path = resource_path("resources/video.ico")
+try:
+    Window.iconbitmap(icon_path)
+except Exception as e:
+    print(f"Failed to load icon: {e}")
+    print(f"Attempted path: {icon_path}")
 Window.geometry("400x400")  # Set window size
 Window.title("LinkTube")  # Set window title
 Window.resizable(False, False)
@@ -118,3 +134,6 @@ theme_switch.select() if ctk.get_appearance_mode() == "Light" else theme_switch.
 
 # Start the main loop
 Window.mainloop()
+
+#pyinstaller --onefile --noconsole --add-data "resources/video.ico;resources" main.py
+#Use the previous line to generate a binary file (exe)
