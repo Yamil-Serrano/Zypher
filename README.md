@@ -1,17 +1,19 @@
 # LinkTube
 
-A simple and user-friendly YouTube video downloader built with Python. TubeLink uses `yt-dlp` for handling video downloads and `CustomTkinter` to provide a modern GUI with a light/dark mode toggle.
+A simple and user-friendly YouTube video downloader built with Python. TubeLink uses `yt-dlp` for handling video and audio downloads and `CustomTkinter` to provide a modern GUI with a light/dark mode toggle.
 
 ## Features
 
 - **Download Best-Quality Videos**: TubeLink downloads the best available quality for YouTube videos
+- **Download Best-Quality Audios**: TubeLink downloads the best audio quality available 
 - **Simple Interface**: A clear and intuitive GUI to easily insert links and manage downloads
 - **Loading Animation**: Progress bar animation for real-time download feedback
 - **Theme Toggle**: Switch between light and dark modes to suit your preference
 
 ## Screenshots
 
-![Screenshot 2024-10-27 202119](https://github.com/user-attachments/assets/e81beedd-42fc-4b5f-8205-f90ba045939b)
+![image](https://github.com/user-attachments/assets/da96998d-8b04-4dfc-a9dc-ba5f926f1621)
+
 
 
 ## Installation
@@ -40,12 +42,13 @@ A simple and user-friendly YouTube video downloader built with Python. TubeLink 
 
 2. **Download a Video**
    - Paste a YouTube link in the text box
+   - Select if you want Video or Audio
    - Click "Download"
    - The video will be saved in your Downloads folder
    - Use the Light/Dark Mode switch to toggle the theme
 
 3. **View Downloads**
-   - Downloaded videos are saved to your system's Downloads folder by default
+   - Downloaded videos or audios are saved to your system's Downloads folder by default
 
 ## Troubleshooting
 
@@ -53,7 +56,8 @@ A simple and user-friendly YouTube video downloader built with Python. TubeLink 
 
 1. **"Download error! What the heck did you enter?"**
    - Ensure the link is a valid YouTube URL
-   - Check if the video is available in your region
+   - Check if the video or audio is available in your region
+   - Do you have internet connection?
 
 2. **Progress bar stops or freezes**
    - If the download appears stuck:
