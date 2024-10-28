@@ -9,6 +9,11 @@ A simple and user-friendly YouTube video downloader built with Python. TubeLink 
 - **Loading Animation**: Progress bar animation for real-time download feedback
 - **Theme Toggle**: Switch between light and dark modes to suit your preference
 
+## Screenshots
+
+![Screenshot 2024-10-27 202119](https://github.com/user-attachments/assets/e81beedd-42fc-4b5f-8205-f90ba045939b)
+
+
 ## Installation
 
 1. Clone the repository:
