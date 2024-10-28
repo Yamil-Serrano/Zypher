@@ -58,6 +58,7 @@ A simple and user-friendly YouTube video downloader built with Python. TubeLink 
 
 ## 📝 License
 
+This project is licensed under the [Creative Commons Attribution-NonCommercial 4.0 International License](LICENSE.md).
 
 ## Contact
 
