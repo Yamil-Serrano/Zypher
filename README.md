@@ -1,4 +1,4 @@
-# TubeLink
+# LinkTube
 
 A simple and user-friendly YouTube video downloader built with Python. TubeLink uses `yt-dlp` for handling video downloads and `CustomTkinter` to provide a modern GUI with a light/dark mode toggle.
 
@@ -13,12 +13,12 @@ A simple and user-friendly YouTube video downloader built with Python. TubeLink 
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Yamil-Serrano/TubeLink
+   git clone https://github.com/Yamil-Serrano/LinkTube
    ```
 
 2. Navigate to the project directory:
    ```bash
-   cd TubeLink
+   cd LinkTube
    ```
 
 3. Install required dependencies:
@@ -30,7 +30,7 @@ A simple and user-friendly YouTube video downloader built with Python. TubeLink 
 
 1. **Start the Application**
    ```bash
-   python TubeLink.py
+   python main.py
    ```
 
 2. **Download a Video**
