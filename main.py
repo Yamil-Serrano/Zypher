@@ -75,7 +75,6 @@ ctk.set_default_color_theme("dark-blue")  # Set color theme
 # Create the main window
 Window = ctk.CTk()
 Window.iconbitmap("resources/video.ico")
-Window.set_window_icon('resources/video.ico') 
 Window.geometry("400x400")  # Set window size
 Window.title("LinkTube")  # Set window title
 Window.resizable(False, False)
