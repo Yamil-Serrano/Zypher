@@ -52,13 +52,14 @@ def videodownloader(link):
         options0 = {
             'format': 'best',  # Download the best quality
             'noplaylist': True,  # Do not download playlists
-            'outtmpl': os.path.join(download_folder, '%(title)s.%(ext)s')  # Output file template
+            'outtmpl': os.path.join(download_folder, '%(title)s.mp4')  # Output file template
         }
 
         options1 = {
-            'format': 'bestaudio[ext=m4a]/bestaudio[ext=webm]/best',  
+            'extract_audio': True,
+            'format': 'bestaudio',  
             'noplaylist': True, 
-            'outtmpl': os.path.join(download_folder, '%(title)s.%(ext)s'),  
+            'outtmpl': os.path.join(download_folder, '%(title)s.wav'),  
         }
 
 
@@ -112,14 +113,14 @@ except Exception as e:
     print(f"Failed to load icon: {e}")
     print(f"Attempted path: {icon_path}")
 Window.geometry("400x400")  # Set window size
-Window.title("LinkTube")  # Set window title
+Window.title("Zypher")  # Set window title
 Window.resizable(False, False)
 
 # Main label
 label = ctk.CTkLabel(
     Window, 
-    text="LinkTube", 
-    font=("Arial Black", 20, "bold"),  
+    text="Zypher", 
+    font=("Arial Black", 25, "bold"),  
     text_color=charcolor()  # Set text color based on theme
 )
 label.pack(pady=20)  # Add padding

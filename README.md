@@ -1,4 +1,4 @@
-# LinkTube
+# Zypher
 
 A simple and user-friendly YouTube video downloader built with Python. TubeLink uses `yt-dlp` for handling video and audio downloads and `CustomTkinter` to provide a modern GUI with a light/dark mode toggle.
 
@@ -19,12 +19,12 @@ A simple and user-friendly YouTube video downloader built with Python. TubeLink 
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Yamil-Serrano/LinkTube
+   git clone https://github.com/Yamil-Serrano/Zypher
    ```
 
 2. Navigate to the project directory:
    ```bash
-   cd LinkTube
+   cd Zypher
    ```
 
 3. Install required dependencies:
