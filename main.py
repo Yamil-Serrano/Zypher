@@ -13,7 +13,6 @@ is_video = True
 def changeformat():
     global is_video
     is_video = not is_video
-    # El switch se moverá a la derecha cuando is_video sea False (audio)
     format_switch.deselect() if is_video else format_switch.select()
 
 def resource_path(relative_path):
@@ -119,7 +118,7 @@ Window.resizable(False, False)
 # Main label
 label = ctk.CTkLabel(
     Window, 
-    text="Zypher", 
+    text="", 
     font=("Arial Black", 25, "bold"),  
     text_color=charcolor()  # Set text color based on theme
 )
@@ -153,9 +152,8 @@ theme_switch.pack(pady=10)
 format_switch = ctk.CTkSwitch(Window, text="Video/Audio", command=changeformat)
 format_switch.pack(pady=10)
 
-# Inicializar estados de los switches (ambos a la izquierda inicialmente)
-theme_switch.deselect()  # Light mode (izquierda)
-format_switch.deselect()  # Video mode (izquierda)
+theme_switch.deselect()  
+format_switch.deselect() 
 
 # Start the main loop
 Window.mainloop()
