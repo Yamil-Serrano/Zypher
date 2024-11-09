@@ -12,7 +12,7 @@ A simple and user-friendly YouTube video downloader built with Python. Zypher us
 
 ## Screenshots
 
-![image](https://github.com/user-attachments/assets/71b73549-e034-4a84-bba3-32585c4a8026)
+![Screenshot 2024-11-08 211906](https://github.com/user-attachments/assets/099e3567-aeca-4040-9c71-3d0fa179e8db)
 
 
 ## Installation
