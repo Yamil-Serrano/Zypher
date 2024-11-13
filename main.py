@@ -118,7 +118,7 @@ Window.resizable(False, False)
 # Main label
 label = ctk.CTkLabel(
     Window, 
-    text="", 
+    text="Zypher", 
     font=("Arial Black", 25, "bold"),  
     text_color=charcolor()  # Set text color based on theme
 )
