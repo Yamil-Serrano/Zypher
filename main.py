@@ -49,16 +49,16 @@ def videodownloader(link):
         start_loading_animation()  # Start loading animation
         
         options0 = {
-            'format': 'best',  # Download the best quality
-            'noplaylist': True,  # Do not download playlists
-            'outtmpl': os.path.join(download_folder, '%(title)s.mp4')  # Output file template
-        }
+        'format': 'mp4',
+        'outtmpl': os.path.join(download_folder, '%(title)s.mp4'),
+        'noplaylist': True,
+    }
 
         options1 = {
+           'format': 'bestaudio',
             'extract_audio': True,
-            'format': 'bestaudio',  
-            'noplaylist': True, 
-            'outtmpl': os.path.join(download_folder, '%(title)s.wav'),  
+            'outtmpl': os.path.join(download_folder, '%(title)s.mp3'),
+            'noplaylist': True,
         }
 
 
@@ -125,7 +125,7 @@ label = ctk.CTkLabel(
 label.pack(pady=20)  # Add padding
 
 # Text entry
-entry = ctk.CTkEntry(Window, placeholder_text="Insert YouTube link here", width=300)
+entry = ctk.CTkEntry(Window, placeholder_text="Insert video link here", width=300)
 entry.pack(pady=10)  # Add padding
 
 # Create a frame for status indicators (progress bar and feedback label)
