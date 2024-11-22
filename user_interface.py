@@ -1,5 +1,5 @@
 import customtkinter as ctk
-import pywinstyles
+import darkdetect
 import tkinter as tk
 
 
@@ -10,13 +10,8 @@ class ZypherApp:
         self.format_callback = format_callback
 
         # Initialize CustomTkinter
-        accent_color = pywinstyles.get_accent_color()
-
-        if accent_color == "#4c4a48":
-            ctk.set_appearance_mode("Dark")
-        else:
-            ctk.set_appearance_mode("Light")
-
+        theme = "Dark" if darkdetect.isDark() else "Light"
+        ctk.set_appearance_mode(theme)
         ctk.set_default_color_theme("dark-blue")
 
         # Create the main window
