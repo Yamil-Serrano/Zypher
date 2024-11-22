@@ -1,5 +1,7 @@
 import customtkinter as ctk
+import pywinstyles
 import tkinter as tk
+
 
 class ZypherApp:
     def __init__(self, download_callback, format_callback, icon_path, custom_folder):
@@ -8,7 +10,13 @@ class ZypherApp:
         self.format_callback = format_callback
 
         # Initialize CustomTkinter
-        ctk.set_appearance_mode("Light")
+        accent_color = pywinstyles.get_accent_color()
+
+        if accent_color == "#4c4a48":
+            ctk.set_appearance_mode("Dark")
+        else:
+            ctk.set_appearance_mode("Light")
+
         ctk.set_default_color_theme("dark-blue")
 
         # Create the main window
@@ -56,7 +64,7 @@ class ZypherApp:
         self.format_switch.pack(pady=5)
 
         # Theme switch
-        self.theme_switch = ctk.CTkSwitch(self.window, text="Light/Dark Mode", command=self.toggle_theme)
+        self.theme_switch = ctk.CTkSwitch(self.window, text="Change Theme", command=self.toggle_theme)
         self.theme_switch.pack(pady=10)
 
     def start_loading(self):
