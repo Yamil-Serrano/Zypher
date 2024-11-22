@@ -1,2 +1,4 @@
-customtkinter
 yt-dlp
+customtkinter
+darkdetect
+tkinter
