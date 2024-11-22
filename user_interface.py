@@ -2,7 +2,8 @@ import customtkinter as ctk
 import tkinter as tk
 
 class ZypherApp:
-    def __init__(self, download_callback, format_callback, icon_path):
+    def __init__(self, download_callback, format_callback, icon_path, custom_folder):
+        self.custom_folder = custom_folder
         self.download_callback = download_callback
         self.format_callback = format_callback
 
@@ -44,11 +45,15 @@ class ZypherApp:
 
         # Download button
         self.download_button = ctk.CTkButton(self.window, text="Download", command=self.start_download)
-        self.download_button.pack(pady=20)
+        self.download_button.pack(pady=2)
+
+        #Folder Location
+        self.folder_button = ctk.CTkButton(self.window, text="Change Download Folder", command=self.custom_folder)
+        self.folder_button.pack(pady=20)
 
         # Format switch
         self.format_switch = ctk.CTkSwitch(self.window, text="Video/Audio", command=self.format_callback)
-        self.format_switch.pack(pady=10)
+        self.format_switch.pack(pady=5)
 
         # Theme switch
         self.theme_switch = ctk.CTkSwitch(self.window, text="Light/Dark Mode", command=self.toggle_theme)

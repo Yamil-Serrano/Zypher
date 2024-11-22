@@ -1,14 +1,19 @@
 import os
 import sys
 from pathlib import Path
+from tkinter import filedialog
 from yt_dlp import YoutubeDL
 import threading
 from user_interface import ZypherApp
 
-
-# Downloads folder
+# Default Downloads folder
 download_folder = str(Path.home() / "Downloads")
 is_video = True
+
+def changefolder():
+    """Change the folder where you'd like to save the video."""
+    global download_folder
+    download_folder = filedialog.askdirectory()
 
 def changeformat():
     """Toggle between video and audio download formats."""
@@ -57,5 +62,5 @@ def videodownloader(link, app):
 
 if __name__ == "__main__":
     icon_path = resource_path("resources/video.ico")
-    app = ZypherApp(videodownloader, changeformat, icon_path)
+    app = ZypherApp(videodownloader, changeformat, icon_path, changefolder)
     app.run()
