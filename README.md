@@ -41,6 +41,7 @@ A simple and user-friendly Video downloader built with Python. Zypher uses `yt-d
 
 2. **Download a Video**
    - Paste a Video link in the text box
+   - You can paste a Playlist link but the playlist must be public
    - Select if you want Video or Audio
    - Click "Download"
    - The video will be saved in your Downloads folder
