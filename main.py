@@ -39,7 +39,7 @@ def videodownloader(link, app):
         """Download video in a separate thread."""
         app.start_loading()  # Start loading animation
         options = {
-            'format': 'mp4' if is_video else 'bestaudio',
+            'format': 'mp4' if is_video else 'bestaudio[ext=m4a]',
             'outtmpl': os.path.join(download_folder, '%(title)s.%(ext)s'),
             'noplaylist': True,
             'extract_audio': not is_video,
