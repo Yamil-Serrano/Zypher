@@ -1,4 +1,3 @@
 yt-dlp
 customtkinter
 darkdetect
-tkinter
