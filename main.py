@@ -11,52 +11,62 @@ download_folder = str(Path.home() / "Downloads")
 is_video = True
 
 def changefolder():
-    """Change the folder where you'd like to save the video."""
     global download_folder
     download_folder = filedialog.askdirectory()
 
 def changeformat():
-    """Toggle between video and audio download formats."""
     global is_video
     is_video = not is_video
 
 def resource_path(relative_path):
-    """Get absolute path to resource, works for dev and for PyInstaller."""
+    # Get absolute path to resource, works for dev and for PyInstaller
     try:
-        # PyInstaller creates a temp folder and stores path in _MEIPASS
         base_path = sys._MEIPASS
     except Exception:
         base_path = os.path.abspath(".")
     return os.path.join(base_path, relative_path)
 
 def videodownloader(link, app):
-    """Download video or audio from the provided link."""
     if not link:
         app.update_feedback("Please enter a link.", "red")
         return
 
     def download_thread():
-        """Download video in a separate thread."""
-        app.start_loading()  # Start loading animation
-        options = {
-            'format': 'mp4' if is_video else 'bestaudio[ext=m4a]',
-            'outtmpl': os.path.join(download_folder, '%(title)s.%(ext)s'),
-            'noplaylist': True,
-            'extract_audio': not is_video,
-            'nocheckcertificate': True,
-        }
+        app.start_loading()
+        
+        if is_video:
+            # Video download - native formats without conversion
+            options = {
+                'format': 'best[ext=mp4]/best[ext=webm]/best',
+                'outtmpl': os.path.join(download_folder, '%(title)s.%(ext)s'),
+                'noplaylist': True,
+                'nocheckcertificate': True,
+            }
+        else:
+            # Audio download - native formats only
+            options = {
+                'format': 'bestaudio[ext=m4a]/bestaudio[ext=webm]/bestaudio/best',
+                'outtmpl': os.path.join(download_folder, '%(title)s.%(ext)s'),
+                'noplaylist': True,
+                'nocheckcertificate': True,
+            }
 
         try:
             with YoutubeDL(options) as ydl:
-                ydl.download([link])  # Download content
-            app.update_feedback("Downloaded!\nCheck your Downloads folder.", "green")
+                ydl.download([link])
+            
+            format_type = "Video" if is_video else "Audio"
+            app.update_feedback(f"{format_type} downloaded!\nCheck your Downloads folder.", "green")
         except Exception as e:
-            app.update_feedback("Download error!\nCheck your connection.", "red")
+            error_msg = str(e).lower()
+            if 'ffmpeg' in error_msg:
+                app.update_feedback("Error: FFmpeg required for this format.\nTry video mode instead.", "red")
+            else:
+                app.update_feedback("Download error!\nCheck your connection or try video mode.", "red")
             print(f"Error: {e}")
         finally:
-            app.stop_loading()  # Stop loading animation
+            app.stop_loading()
 
-    # Start the download in a separate thread
     thread = threading.Thread(target=download_thread)
     thread.daemon = True
     thread.start()
