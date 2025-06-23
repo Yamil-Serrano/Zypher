@@ -75,3 +75,6 @@ if __name__ == "__main__":
     icon_path = resource_path("resources/video.ico")
     app = ZypherApp(videodownloader, changeformat, icon_path, changefolder)
     app.run()
+
+# For compile the app only
+# pyinstaller --onefile --windowed --icon=resources/video.ico --name "Zypher-Lite" main.py --add-data "resources/video.ico;resources"
