@@ -69,29 +69,26 @@ Simply copy the URL of the video you want to download, paste it into Zypher, and
 ---
 
 ## Installation
-
 1. Clone the repository:
    ```bash
    git clone https://github.com/Yamil-Serrano/Zypher
+   ```
 
 2. Navigate to the project directory:
-   
-bash
+   ```bash
    cd Zypher
+   ```
 
 3. Install required dependencies:
-   
-bash
+   ```bash
    pip install -r requirements.txt
-
+   ```
 
 ## Usage
-
 1. **Start the Application**
-   
-bash
+   ```bash
    python main.py
-
+   ```
 
 2. **Download a Video**
    - Paste a Video link in the text box
