@@ -1,47 +1,100 @@
 # Zypher
 
-A simple and user-friendly Video downloader built with Python. Zypher uses `yt-dlp` for handling video and audio downloads and `CustomTkinter` to provide a modern GUI with a light/dark mode toggle.
+**Zypher** is a modern and powerful video/audio downloader for Windows, designed with performance and flexibility in mind. Powered by the `yt_dlp` library, it gives you full control over format selection, quality settings, and media conversions.  
+Simply copy the URL of the video you want to download, paste it into Zypher, and choose whether to download the video or extract the audio.
 
-## Features
+> **Note:** If a download fails, it's likely that the website you're trying to download from is not supported by `yt_dlp`.  
+> You can check the list of supported websites in the official [GitHub repository](https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md),  
+> or by installing `yt_dlp` and running the following command:
+>
+> ```bash
+> yt-dlp --list-extractors
+> ```
 
-- **Download Best-Quality Videos**: Zypher downloads the best available quality for videos
-- **Download Best-Quality Audios**: Zypher downloads the best audio quality available 
-- **Simple Interface**: A clear and intuitive GUI to easily insert links and manage downloads
-- **Loading Animation**: Progress bar animation for real-time download feedback
-- **Theme Toggle**: Switch between light and dark modes to suit your preference
 
-## Screenshots
+##  Planned Features – Zypher (Full Version)
 
-![Screenshot 2024-11-08 211906](https://github.com/user-attachments/assets/099e3567-aeca-4040-9c71-3d0fa179e8db)
+- **High-Quality Video Downloads**  
+  Download videos in resolutions up to **1080p, 1440p, or 4K** depending on availability.
 
+- **Format and Quality Selection**  
+  Choose video/audio format and resolution before downloading.
+
+- **FFmpeg Integration**  
+  Advanced processing like merging video+audio, converting formats, and trimming clips.
+
+- **Custom Settings**  
+  Advanced download options, bitrate control, and batch processing.
+
+- **Playlist and Channel Support**  
+  Download full playlists or entire YouTube channels.
+
+---
+
+> ⚠️ **Note:** The full version of Zypher is currently **in development**. For now, you can use **Zypher Lite**, the stable and simplified version (see below).
+
+---
+
+# Zypher Lite
+
+**Zypher Lite** is the stable, lightweight version of Zypher focused on simplicity and ease of use. It downloads audio and video using the native formats provided by the source without using FFmpeg. Ideal for quick downloads in standard quality.
+
+---
+
+## Features – Zypher Lite 
+
+- **Native Format Downloads**  
+  Downloads videos in `.mp4`, `.webm`, `.m4a`, etc., exactly as provided by YouTube.
+
+- **Max 480p Video Resolution**  
+  Downloads are limited to a maximum of 480p resolution for stability and speed.
+
+- **Audio-Only Support**  
+  Extract native audio without conversion (no `.mp3`).
+
+- **No FFmpeg Needed**  
+  Fast downloads with no extra tools or conversions.
+
+- **Simple Interface**  
+  Just paste your link, choose between video or audio, and download.
+
+- **Custom Download Folder**  
+  Choose where your downloads are saved.
+
+---
+
+## Screenshots – Zypher Lite
+![image](https://github.com/user-attachments/assets/2c1a1c02-a5c2-4a95-859e-55084be11ea9)
+
+---
 
 ## Installation
 
 1. Clone the repository:
    ```bash
    git clone https://github.com/Yamil-Serrano/Zypher
-   ```
 
 2. Navigate to the project directory:
-   ```bash
+   
+bash
    cd Zypher
-   ```
 
 3. Install required dependencies:
-   ```bash
+   
+bash
    pip install -r requirements.txt
-   ```
+
 
 ## Usage
 
 1. **Start the Application**
-   ```bash
+   
+bash
    python main.py
-   ```
+
 
 2. **Download a Video**
    - Paste a Video link in the text box
-   - You can paste a Playlist link but the playlist must be public
    - Select if you want Video or Audio
    - Click "Download"
    - The video will be saved in your Downloads folder
@@ -54,7 +107,7 @@ A simple and user-friendly Video downloader built with Python. Zypher uses `yt-d
 
 ### Common Issues and Solutions
 
-1. **"Download error! What the heck did you enter?"**
+1. **"Download error?"**
    - Ensure the link is a valid Video URL
    - Check if the video or audio is available in your region
    - Do you have internet connection?
