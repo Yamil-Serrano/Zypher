@@ -1,3 +1,4 @@
-yt-dlp
+yt_dlp
 customtkinter
 darkdetect
+setuptools
