@@ -15,7 +15,7 @@ class ZypherApp:
 
         self.window = ctk.CTk()
         self.window.title("Zypher - Lite")
-        self.window.geometry("400x430")
+        self.window.geometry("400x500")
         self.window.resizable(False, False)
 
         try:
@@ -34,18 +34,19 @@ class ZypherApp:
         )
         self.info_label.pack(pady=(0, 10))
 
-        self.entry = ctk.CTkEntry(self.window, placeholder_text="Insert video link here", width=300)
-        self.entry.pack(pady=10)
+        self.textbox = ctk.CTkTextbox(self.window, height=100, width=300)
+        self.textbox.pack(pady=10)
 
         self.status_frame = ctk.CTkFrame(self.window, fg_color="transparent", width=300, height=50)
         self.status_frame.pack(pady=10)
         self.status_frame.pack_propagate(False)
 
-        self.progress_bar = ctk.CTkProgressBar(self.status_frame, mode="indeterminate", width=200)
-        self.progress_bar.set(0)
+        self.text_frame = ctk.CTkFrame(self.status_frame, fg_color="transparent", height=30)
+        self.text_frame.pack(pady=(0, 5))
+        self.text_frame.pack_propagate(False)
 
-        self.feedback_label = ctk.CTkLabel(self.status_frame, text="", font=("Arial", 12), wraplength=300, justify="center")
-        self.feedback_label.pack(pady=10)
+        self.feedback_label = ctk.CTkLabel(self.text_frame, text="", font=("Arial", 12), wraplength=300, justify="center")
+        self.feedback_label.pack()
 
         self.download_button = ctk.CTkButton(self.window, text="Download", command=self.start_download)
         self.download_button.pack(pady=2)
@@ -63,21 +64,18 @@ class ZypherApp:
         self.theme_switch = ctk.CTkSwitch(self.window, text="Change Theme", command=self.toggle_theme)
         self.theme_switch.pack(pady=10)
 
-    def start_loading(self):
-        self.progress_bar.pack(in_=self.status_frame, pady=10)
-        self.progress_bar.start()
-        self.feedback_label.pack_forget()
-
-    def stop_loading(self):
-        self.progress_bar.stop()
-        self.progress_bar.pack_forget()
-        self.feedback_label.pack(in_=self.status_frame, pady=10)
-
     def update_feedback(self, message, color):
         self.feedback_label.configure(text=message, text_color=color)
 
     def start_download(self):
-        self.download_callback(self.entry.get(), self)
+        box_content = self.textbox.get("1.0", "end-1c")
+        lines = box_content.split("\n")
+        urls = []
+        for line in lines:
+            Clean_line = line.strip() # Clean the line
+            if Clean_line:  # Verify if have something
+                urls.append(Clean_line)  # Add to the list
+        self.download_callback(urls, self)
 
     def toggle_theme(self):
         current_mode = ctk.get_appearance_mode()
