@@ -26,8 +26,8 @@ Simply copy the URL of the video you want to download, paste it into Zypher, and
 - **Custom Settings**  
   Advanced download options, bitrate control, and batch processing.
 
-- **Playlist and Channel Support**  
-  Download full playlists or entire YouTube channels.
+- **Batch Download Support**  
+  Download multiple videos at once by pasting one URL per line in the text box.
 
 ---
 
@@ -61,10 +61,12 @@ Simply copy the URL of the video you want to download, paste it into Zypher, and
 - **Custom Download Folder**  
   Choose where your downloads are saved.
 
+- **Batch Download Support**  
+  Download multiple videos at once by pasting one URL per line in the text box.
 ---
 
 ## Screenshots – Zypher Lite
-![image](https://github.com/user-attachments/assets/2c1a1c02-a5c2-4a95-859e-55084be11ea9)
+<img width="821" height="807" alt="image" src="https://github.com/user-attachments/assets/19b5b674-d05d-403b-9a65-b428ac21156d" />
 
 ---
 
@@ -90,12 +92,11 @@ Simply copy the URL of the video you want to download, paste it into Zypher, and
    python main.py
    ```
 
-2. **Download a Video**
-   - Paste a Video link in the text box
-   - Select if you want Video or Audio
+2. **Download Videos**
+   - Paste one or multiple video links in the text box (one URL per line)
+   - Select if you want Video or Audio mode
    - Click "Download"
-   - The video will be saved in your Downloads folder
-   - Use the Light/Dark Mode switch to toggle the theme
+   - All videos will be processed sequentially and saved to your Downloads folder
 
 3. **View Downloads**
    - Downloaded videos or audios are saved to your system's Downloads folder by default
@@ -114,6 +115,11 @@ Simply copy the URL of the video you want to download, paste it into Zypher, and
      - Try restarting the app
      - Check your internet connection
      - Confirm yt-dlp is correctly installed
+
+3. **Batch download issues**
+   - If one download fails, the others will continue processing
+   - Check the final summary for success/failure counts
+   - Invalid URLs will be skipped automatically
 
 ## 📝 License
 
