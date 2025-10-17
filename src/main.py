@@ -38,37 +38,67 @@ def videodownloader(links, app):
         # Loop Through URLs
         for i, link in enumerate(links):
 
-            app.update_feedback(f"Downloading {i+1} of {len(links)} videos...", "steelblue")
+            app.update_feedback(f"Downloading {i+1} of {len(links)}...", "steelblue")
             app.window.update()
         
             if is_video:
                 # Video download settings (native formats without conversion)
                 options = {
-                    'format': 'best[ext=mp4]/best[ext=webm]/best',
+                    # Updated format selection for better compatibility
+                    'format': 'bv*[ext=mp4][vcodec^=avc]+ba[ext=m4a]/b[ext=mp4]/b',
                     # Output template: Short, predictable filename with video ID to avoid Windows path issues
                     'outtmpl': os.path.join(download_folder, 'Zypher_video_%(id)s.%(ext)s'),
                     # Force sanitized filenames (removes special chars/emojis)
                     'restrictfilenames': True,
                     # Skip playlist extraction (download single video only)
                     'noplaylist': True,
-                    # Mimic Chrome browser to avoid Facebook bot detection
-                    'http_headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'},
+                    # Updated headers and settings
+                    'http_headers': {
+                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                        'Accept-Language': 'en-us,en;q=0.5',
+                        'Accept-Encoding': 'gzip, deflate',
+                        'DNT': '1',
+                        'Connection': 'keep-alive',
+                        'Upgrade-Insecure-Requests': '1',
+                    },
                     # Increase timeout to 30s for slow connections or responses
                     'socket_timeout': 30,
                     # Retry up to 3 times on temporary failures
-                    'extract_retry': 3,
+                    'extractor_retries': 3,
+                    'fragment_retries': 10,
+                    'skip_unavailable_fragments': True,
+                    'nocheckcertificate': True,
+
+                    'extractor_args': {
+                        'youtube': {
+                            'player_client': ['android', 'web'],
+                        }
+                    },
                 }
             else:
                 # Audio download settings (native formats only)
                 options = {
-                    'format': 'bestaudio[ext=m4a]/bestaudio[ext=webm]/bestaudio/best',
+                    # Updated format for better compatibility
+                    'format': 'bestaudio/best',
                     # Output template for audio files
                     'outtmpl': os.path.join(download_folder, 'Zypher_audio_%(id)s.%(ext)s'),
                     'restrictfilenames': True,
                     'noplaylist': True,
-                    'http_headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'},
+                    # Updated headers
+                    'http_headers': {
+                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                        'Accept-Language': 'en-us,en;q=0.5',
+                    },
                     'socket_timeout': 30,
-                    'extract_retry': 3,
+                    # Retry settings for current YouTube
+                    'extractor_retries': 3,
+                    'fragment_retries': 10,
+                    'skip_unavailable_fragments': True,
+                    'nocheckcertificate': True,
+
+                    # Note: No extractor_args for audio - they force video formats
                 }
 
             try:
@@ -77,24 +107,19 @@ def videodownloader(links, app):
                 
                 success_count += 1
                 format_type = "Video" if is_video else "Audio"
-                app.update_feedback(f"Video {i+1} of {len(links)} downloaded!", "springgreen")
+                app.update_feedback(f"{format_type} {i+1} of {len(links)} downloaded!", "springgreen")
 
             except Exception as e:
                 error_count += 1
-                error_msg = str(e).lower()
-                if 'ffmpeg' in error_msg:
-                    app.update_feedback(f"Error URL {i+1}: Needs FFmpeg", "red")
-                elif 'not a valid URL' in error_msg:
-                    app.update_feedback(f"URL {i+1} inválida: {link}", "red")
-                else:
-                    app.update_feedback(f"Error with URL {i+1}: {str(e)}", "red")
-                print(f"Error: {e}") # debbug only message
+                print(f"Error: {e}") # debug only message
                 continue
 
         if error_count == 0:
-            app.update_feedback(f"All {success_count} videos downloaded successfully!", "springgreen")
-        else:
+            app.update_feedback(f"All {success_count} downloads completed!", "springgreen")
+        elif success_count > 0:
             app.update_feedback(f"⚠️ Completed: {success_count} success, {error_count} failed", "orange")
+        else:
+            app.update_feedback(f"⚠️ All downloads failed!", "red")
 
     thread = threading.Thread(target=download_thread)
     thread.daemon = True
