@@ -1,10 +1,14 @@
 import os
 import sys
+import shutil
 from pathlib import Path
 from tkinter import filedialog
 from yt_dlp import YoutubeDL
 import threading
 from user_interface import ZypherApp
+
+def has_ffmpeg_and_deno():
+    return (shutil.which("ffmpeg") and shutil.which("deno")) is not None
 
 # Default Downloads folder
 download_folder = str(Path.home() / "Downloads")
@@ -38,14 +42,22 @@ def videodownloader(links, app):
         # Loop Through URLs
         for i, link in enumerate(links):
 
-            app.update_feedback(f"Downloading {i+1} of {len(links)}...", "steelblue")
+            app.update_feedback(f"Downloading {i+1} of {len(links)} Please wait...", "steelblue")
             app.window.update()
         
             if is_video:
-                # Video download settings (native formats without conversion)
+
+                # Video download settings
+                # If FFmpeg is available, merge best video + best audio for max resolution.
+                # Otherwise, fall back to a single progressive mp4 (native, no merge, capped to 360p).
+                if has_ffmpeg_and_deno():
+                    video_format = 'bv*[ext=mp4][vcodec^=avc]+ba[ext=m4a]/bv*+ba/b'
+                else:
+                    video_format = 'b[ext=mp4]/b'
+
                 options = {
                     # Updated format selection for better compatibility
-                    'format': 'bv*[ext=mp4][vcodec^=avc]+ba[ext=m4a]/b[ext=mp4]/b',
+                    'format': video_format,
                     # Output template: Short, predictable filename with video ID to avoid Windows path issues
                     'outtmpl': os.path.join(download_folder, 'Zypher_video_%(id)s.%(ext)s'),
                     # Force sanitized filenames (removes special chars/emojis)
@@ -70,12 +82,11 @@ def videodownloader(links, app):
                     'skip_unavailable_fragments': True,
                     'nocheckcertificate': True,
 
-                    'extractor_args': {
-                        'youtube': {
-                            'player_client': ['android', 'web'],
-                        }
-                    },
                 }
+
+                if has_ffmpeg_and_deno():
+                    options['merge_output_format'] = 'mp4'
+
             else:
                 # Audio download settings (native formats only)
                 options = {
@@ -100,6 +111,13 @@ def videodownloader(links, app):
 
                     # Note: No extractor_args for audio - they force video formats
                 }
+
+                if has_ffmpeg_and_deno():
+                    options['postprocessors'] = [{
+                        'key': 'FFmpegExtractAudio',
+                        'preferredcodec': 'mp3',
+                        'preferredquality': '192',
+                    }]
 
             try:
                 with YoutubeDL(options) as ydl:
@@ -127,7 +145,7 @@ def videodownloader(links, app):
 
 if __name__ == "__main__":
     icon_path = resource_path("resources/video.ico")
-    app = ZypherApp(videodownloader, changeformat, icon_path, changefolder)
+    app = ZypherApp(videodownloader, changeformat, icon_path, changefolder, has_ffmpeg_and_deno)
     app.run()
 
 # For compile the app only

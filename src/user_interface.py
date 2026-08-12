@@ -3,10 +3,11 @@ import darkdetect
 import tkinter as tk
 
 class ZypherApp:
-    def __init__(self, download_callback, format_callback, icon_path, custom_folder):
+    def __init__(self, download_callback, format_callback, icon_path, custom_folder, has_ffmpeg_and_deno):
         self.custom_folder = custom_folder
         self.download_callback = download_callback
         self.format_callback = format_callback
+        self.has_ffmpeg_and_deno = has_ffmpeg_and_deno
 
         # Initialize CustomTkinter
         theme = "Dark" if darkdetect.isDark() else "Light"
@@ -26,9 +27,14 @@ class ZypherApp:
         self.label = ctk.CTkLabel(self.window, text="Zypher Lite", font=("Arial Black", 25, "bold"))
         self.label.pack(pady=20)
 
+        if self.has_ffmpeg_and_deno():
+            info_label_text = "FFmpeg and Deno found • Full format support"
+        else:
+            info_label_text = "FFmpeg or Deno not found • Native formats only"
+
         self.info_label = ctk.CTkLabel(
             self.window, 
-            text="No FFmpeg • Native formats only", 
+            text=info_label_text, 
             font=("Arial", 10), 
             text_color="gray"
         )

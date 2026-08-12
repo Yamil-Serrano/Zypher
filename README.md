@@ -1,7 +1,8 @@
-# Zypher
+# Zypher Lite
 
-**Zypher** is a modern and powerful video/audio downloader for Windows, designed with performance and flexibility in mind. Powered by the `yt_dlp` library, it gives you full control over format selection, quality settings, and media conversions.  
-Simply copy the URL of the video you want to download, paste it into Zypher, and choose whether to download the video or extract the audio.
+**Zypher Lite** is a modern and lightweight video/audio downloader for Windows, focused on simplicity and ease of use. Powered by the `yt_dlp` library, it downloads audio and video using the native formats provided by the source.
+
+Just paste one or multiple links (one URL per line), choose Video or Audio, and Zypher Lite will download them sequentially to your Downloads folder or to your custom folder if configured.
 
 > **Note:** If a download fails, it's likely that the website you're trying to download from is not supported by `yt_dlp`.  
 > You can check the list of supported websites in the official [GitHub repository](https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md),  
@@ -11,45 +12,47 @@ Simply copy the URL of the video you want to download, paste it into Zypher, and
 > yt-dlp --list-extractors
 > ```
 
-##  Planned Features – Zypher (Full Version)
 
-- **High-Quality Video Downloads**  
-  Download videos in resolutions up to **1080p, 1440p, or 4K** depending on availability.
+## FFmpeg & Deno: Optional, Automatically Detected
 
-- **Format and Quality Selection**  
-  Choose video/audio format and resolution before downloading.
+Zypher Lite works out of the box with **no extra tools required**. By default, it downloads the native format returned directly by the source (usually `.mp4`, `.webm`, or `.m4a`), capped at a lower resolution for speed and stability.
 
-- **FFmpeg Integration**  
-  Advanced processing like merging video+audio, converting formats, and trimming clips.
+However, Zypher Lite **automatically detects** whether FFmpeg and Deno are installed on your system. You don't need to configure anything just install them and Zypher Lite will pick them up on the next launch:
 
-- **Custom Settings**  
-  Advanced download options, bitrate control, and batch processing.
+- **Without FFmpeg and Deno (default / Lite mode):** downloads are limited to the native, pre-merged format YouTube provides generally capped around **360p**.
+- **With FFmpeg and Deno installed:** Zypher Lite unlocks full-quality downloads, merging the best available video and audio streams — typically **1080p or higher**, up to 4K depending on the source.
 
-- **Batch Download Support**  
-  Download multiple videos at once by pasting one URL per line in the text box.
+The app's interface tells you which mode is currently active, so you always know what to expect before downloading.
 
-> ⚠️ **Note:** The full version of Zypher is currently **in development**. For now, you can use **Zypher Lite**, the stable and simplified version (see below).
+### How to Install FFmpeg and Deno
 
+Both tools are free and take about a minute to install using `winget`, which comes built into Windows 10/11.
 
-# Zypher Lite
+1. Open **PowerShell** (search for it in the Start menu).
+2. Run the following commands:
+   ```powershell
+   winget install ffmpeg
+   winget install DenoLand.Deno
+   ```
+3. **Close and reopen** PowerShell (and any other terminal, IDE, or Zypher Lite window you have open) this refreshes your system's PATH so the new tools can be found.
+4. Verify both are installed correctly:
+   ```powershell
+   ffmpeg -version
+   deno --version
+   ```
+   If each command prints a version number instead of an error, you're all set.
+5. Launch Zypher Lite — the app checks for both tools automatically on startup and will switch to full-quality mode on its own.
 
-**Zypher Lite** is the stable, lightweight version of Zypher focused on simplicity and ease of use. It downloads audio and video using the native formats provided by the source without using FFmpeg. Ideal for quick downloads in standard quality.
-
-Just paste one or multiple links (one URL per line), choose Video or Audio, and Zypher Lite will download them sequentially to your Downloads folder or to your custom folder if configured.
-
-## Features – Zypher Lite 
+## Features 
 
 - **Native Format Downloads**  
   Downloads videos in `.mp4`, `.webm`, `.m4a`, etc., exactly as provided by YouTube.
 
-- **Limited video resolution**  
-  Lower resolutions for speed and stability.
+- **Automatic Quality Scaling**  
+  Detects FFmpeg and Deno on your system and automatically switches between Lite (native, lower-res) and full-quality (merged, high-res) downloads no manual setup required.
 
 - **Audio-Only Support**  
-  Extract native audio without conversion (no `.mp3`).
-
-- **No FFmpeg Needed**  
-  Fast downloads with no extra tools or conversions.
+  Extract audio in its native format by default (no `.mp3`); if FFmpeg is detected, audio is automatically converted to `.mp3` instead.
 
 - **Simple Interface**  
   Just paste your link, choose between video or audio, and download.
@@ -60,7 +63,7 @@ Just paste one or multiple links (one URL per line), choose Video or Audio, and 
 - **Batch Download Support**  
   Download multiple videos at once by pasting one URL per line in the text box.
 
-## Screenshots – Zypher Lite
+## Screenshots
 <img width="821" height="807" alt="image" src="https://github.com/user-attachments/assets/19b5b674-d05d-403b-9a65-b428ac21156d" />
 
 
@@ -71,13 +74,19 @@ Just paste one or multiple links (one URL per line), choose Video or Audio, and 
    - Check if the video or audio is available in your region
    - Do you have internet connection?
 
-2. **Progress bar stops or freezes**
+2. **Downloads are stuck at low resolution (360p)**
+   - This is expected behavior in Lite mode. To unlock higher resolutions:
+     - Install FFmpeg and Deno and make sure both are added to your system's PATH
+     - Restart Zypher Lite — the app checks for both tools on launch and will switch to full-quality mode automatically
+     - Verify both are installed correctly by running `ffmpeg -version` and `deno --version` in a terminal
+
+3. **Progress bar stops or freezes**
    - If the download appears stuck:
      - Try restarting the app
      - Check your internet connection
      - Confirm yt-dlp is correctly installed
 
-3. **Batch download issues**
+4. **Batch download issues**
    - If one download fails, the others will continue processing
    - Check the final summary for success/failure counts
    - Invalid URLs will be skipped automatically
@@ -90,7 +99,7 @@ If a download fails, **it may not be a permanent application error**. Websites l
     ```bash
     pip install --upgrade yt-dlp
     ```
-2.  **Run Zypher from the source code:**
+2.  **Run Zypher Lite from the source code:**
     - Make sure you have Python installed and have installed the requirements (`pip install -r requirements.txt`).
     - Run the application directly from your terminal.
     - This will use the **updated** version of `yt-dlp` on your system, which will likely resolve the download issue.
